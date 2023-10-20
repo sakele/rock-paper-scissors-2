@@ -10,6 +10,10 @@
         function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1) + min)
         }
+        function capitalize(string) {
+            let lower = string.toLowerCase();
+            return lower.charAt(0).toUpperCase() + lower.slice(1);
+        }
         function getComputerChoice() {
             let choice = getRandomInt(1,3);
             if (choice === 1) {
@@ -19,6 +23,29 @@
             } else {
                 return 'Scissors'
             }
+        }
+        function playRound(playerSelection, computerSelection) {
+            let playerOutcome;
+            let winningPlay;
+            let losingPlay;
+            playerSelection = capitalize(playerSelection);
+            if (playerSelection === computerSelection) {
+                return 'Tie!'
+            } else if ((playerSelection === 'Rock' && computerSelection === 'Scissors') ||
+                        (playerSelection === 'Scissors' && computerSelection === 'Paper') ||
+                        (playerSelection === 'Paper' && computerSelection === 'Rock')) {
+                            playerOutcome = 'Win';
+                            winningPlay = playerSelection;
+                            losingPlay = computerSelection;
+            } else {
+                playerOutcome = 'Lose'
+                winningPlay = computerSelection;
+                losingPlay = playerSelection;
+                }
+            return `You ${playerOutcome}! ${winningPlay} beats ${losingPlay}`
+        }
+        function game() {
+            
         }
     </script>
 </body>
