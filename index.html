@@ -3,11 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rock, Paper, and Scissors, too.</title>
+    <title>Rock, Paper, and Scissors, too!</title>
 </head>
 <body>
     <script>
-        
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min)
+        }
+        function getComputerChoice() {
+            let choice = getRandomInt(1,3);
+            if (choice === 1) {
+                return 'Rock'
+            } else if (choice === 2) {
+                return 'Paper'
+            } else {
+                return 'Scissors'
+            }
+        }
     </script>
 </body>
 </html>
