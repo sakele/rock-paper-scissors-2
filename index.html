@@ -6,15 +6,17 @@
     <title>Rock, Paper, and Scissors, too!</title>
 </head>
 <body>
-    <div id="results">
-        <div class="playerScore"></div>
-        <div class="compScore"></div>
-        <div class="round">What's yer play, pardner?</div>
-    </div>
+    <div class="round">What's yer play, pardner?</div>   
     <button id="rock">Rock</button>
     <button id="paper">Paper</button>
     <button id="scissors">Scissors</button>
+    <div id="results">
+        <div class="playerScore"></div>
+        <div class="compScore"></div>
+    </div>
     <script>
+        let playerWins = 0;
+        let compWins = 0;
         function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1) + min)
         }
@@ -36,7 +38,6 @@
             let playerOutcome;
             let winningPlay;
             let losingPlay;
-            const results = document.querySelector('#results');
             const roundResult = document.querySelector('.round');
             playerSelection = capitalize(playerSelection);
             if (playerSelection === computerSelection) {
@@ -60,51 +61,54 @@
         const buttons = document.querySelectorAll('button');
         buttons.forEach(function(button) {
             button.addEventListener('click', function(e) {
+                newGame();
                 let play = e.target.id;
                 let playerOutcome = playRound(play, getComputerChoice());
-                //game(playerOutcome, playerWins, compWins);
+                updateScore(playerOutcome);
+                checkWinner();
             })
         });
 
-        /*function game(playerOutcome, playerWins, compWins) {
+        function newGame() {
+            if (playerWins >= 5 || compWins >= 5) {
+                playerWins = 0;
+                compWins = 0;
+                const results = document.querySelector('#results');
+                let finalResult = results.lastChild;
+                let playerScore = document.querySelector('.playerScore');
+                let compScore = document.querySelector('.compScore');
+                results.removeChild(finalResult);
+                playerScore.textContent = null;
+                compScore.textContent = null;
+            }
+        }
+
+        function updateScore(playerOutcome) {
+            if (playerOutcome === 'Win') {
+                playerWins += 1;
+            } else if (playerOutcome === 'Lose') {
+                compWins += 1;
+            }
+            let playerScore = document.querySelector('.playerScore');
+            let compScore = document.querySelector('.compScore');
+            playerScore.textContent = `Player: ${playerWins}`;
+            compScore.textContent = `Computer: ${compWins}`;
+        }
+
+        function checkWinner() {
             const roundResult = document.querySelector('.round');
             if (playerWins >= 5 || compWins >= 5) {
-                roundResult.textContent
-            }
-        } */
-
-        /*function game() {
-            let keepGoing = true;
-            let count = 1;
-            let playerWins = 0;
-            let compWins = 0;
-            let playerSelection;
-            while (keepGoing) {
-                if (count === 5) {
-                    keepGoing = false;
+                const results = document.querySelector('#results');
+                const finalResult = document.createElement('div');
+                finalResult.classList.add('final');
+                if (playerWins > compWins) {
+                    finalResult.textContent = `You won ${playerWins} to ${compWins}. Go get 'em, champ!`;
+                } else {
+                    finalResult.textContent = `You lost ${compWins} to ${playerWins}. Better luck next time!`;
                 }
-                playerSelection = prompt("What's yer play, pardner? (Only Rock, Paper, or Scissors)")
-                playerOutcome = playRound(playerSelection, getComputerChoice())
-                if (playerOutcome === 'Win') {
-                    playerWins += 1;
-                }
-                else if (playerOutcome === 'Lose') {
-                    compWins += 1;
-                }
-                count += 1;
+                results.appendChild(finalResult);
             }
-            let winner = `You won ${playerWins} to ${compWins}. Go get 'em, champ!`
-            let loser = `You lost ${compWins} to ${playerWins}. Better luck next time!`;
-            let tie = "You tied with the machine. I guess no one's superior?"
-            if (playerWins > compWins) {
-                finalOutcome = winner;
-            } else if (playerWins < compWins) {
-                finalOutcome = loser;
-            } else {
-                finalOutcome = tie;
-            }
-            console.log(finalOutcome);
-        }*/
+        }
     </script>
 </body>
 </html>
