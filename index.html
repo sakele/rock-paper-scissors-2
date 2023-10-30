@@ -6,6 +6,11 @@
     <title>Rock, Paper, and Scissors, too!</title>
 </head>
 <body>
+    <div id="results">
+        <div class="playerScore"></div>
+        <div class="compScore"></div>
+        <div class="round">What's yer play, pardner?</div>
+    </div>
     <button id="rock">Rock</button>
     <button id="paper">Paper</button>
     <button id="scissors">Scissors</button>
@@ -31,9 +36,11 @@
             let playerOutcome;
             let winningPlay;
             let losingPlay;
+            const results = document.querySelector('#results');
+            const roundResult = document.querySelector('.round');
             playerSelection = capitalize(playerSelection);
             if (playerSelection === computerSelection) {
-                console.log('Tie!')
+                roundResult.textContent = 'Tie!';
                 return 'Tie'
             } else if ((playerSelection === 'Rock' && computerSelection === 'Scissors') ||
                         (playerSelection === 'Scissors' && computerSelection === 'Paper') ||
@@ -46,7 +53,7 @@
                 winningPlay = computerSelection;
                 losingPlay = playerSelection;
                 }
-            console.log(`You ${playerOutcome}! ${winningPlay} beats ${losingPlay}`)
+            roundResult.textContent = `You ${playerOutcome}! ${winningPlay} beats ${losingPlay}`;
             return playerOutcome;
         }
 
@@ -55,9 +62,16 @@
             button.addEventListener('click', function(e) {
                 let play = e.target.id;
                 let playerOutcome = playRound(play, getComputerChoice());
-                return playerOutcome;
+                //game(playerOutcome, playerWins, compWins);
             })
         });
+
+        /*function game(playerOutcome, playerWins, compWins) {
+            const roundResult = document.querySelector('.round');
+            if (playerWins >= 5 || compWins >= 5) {
+                roundResult.textContent
+            }
+        } */
 
         /*function game() {
             let keepGoing = true;
